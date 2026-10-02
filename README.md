@@ -12,12 +12,12 @@ Kotlin 2.3, Spring Boot 4.1, Pact JVM 4.7, Gradle 9.2.
 
 ## How the contract flow works
 
-1. **Consumer test** (`order-service/src/test/.../ProductClientPactTest.kt`) describes what
+1. **Consumer test** (`ProductClientPactTest.kt`) describes what
    `order-service` expects from `product-service`: two interactions, each tied to a provider state.
    Pact starts a mock server, the real `ProductClient` is pointed at it, and the test asserts on the
    parsed result. When the test passes, Pact writes the contract to
    `pacts/order-service-product-service.json`.
-2. **Provider verification** (`product-service/src/test/.../ProductProviderPactTest.kt`) boots the
+2. **Provider verification** (`ProductProviderPactTest.kt`) boots the
    real `product-service`, reads the pact file from `pacts/`, and replays every interaction against
    it. Before each interaction it runs the matching `@State` method to put the service in the state
    the consumer assumed (seed product 1, or clear the repository).
